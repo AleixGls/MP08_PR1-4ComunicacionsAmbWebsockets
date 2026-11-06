@@ -25,6 +25,7 @@ class MainActivity : AppCompatActivity() {
     lateinit var wsclient : MyWebSocketClient
 
 
+
     // Clase main de la gui(?
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -149,7 +150,16 @@ class MainActivity : AppCompatActivity() {
     fun connectaWS() {
 
         // Definir la url del servidor
-        val uri = URI("ws://10.0.2.2:8080")
+        // HE TENIDO QUE HACER UN TUNEL EN WINDOWS PORQUE 10.0.2.2:8080 NO CONECTABA
+        // COMANDO QUE HE USADO EN LA POWERSHELL DE ANDROID STUDIO:
+        // & "C:\Users\aleix\AppData\Local\Android\Sdk\platform-tools\adb.exe" reverse tcp:8080 tcp:8080
+        //
+        // SI HAY MAS DE 2 EMULADORES ABIERTOS HAY QUE USAR:
+        // & "C:\Users\aleix\AppData\Local\Android\Sdk\platform-tools\adb.exe" devices
+        // MIRAR EL NOMBRE DEL EMULADOR: emulator-XXXX
+        // Y USAR EL SIGUIENTE COMANDO CON EL NOMBRE DE EMULADORES QUE HAYA
+        // "C:\Users\aleix\AppData\Local\Android\Sdk\platform-tools\adb.exe" -s emulator-XXXX reverse tcp:8080 tcp:8080
+        val uri = URI("ws://127.0.0.1:8080")
 
         // Crear l'instancia del servidor
         wsclient = MyWebSocketClient(uri)
